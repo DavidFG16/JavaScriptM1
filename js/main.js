@@ -30,7 +30,7 @@ const removeProduct = async (data) => {
     return result;
 }
 
-const findProducts = async (data) => {
+const findProducts = async () => {
     const config = {
         method: "GET", // Obtener todos los productos
     }
@@ -61,6 +61,24 @@ const editUser = async (data) => {
     return result;
 }
 
+const removeUser = async (data) => {
+    const {id} = data;
+    const config = {
+        method: "DELETE", 
+    }
+    const response = await fetch(`http://localhost:5600/users/${id}`, config)
+    const result = await response.json()
+    return result;
+}
+
+const findUsers = async () => {
+    const config = {
+        method: "GET", // Obtener todos los productos
+    }
+    const response = await fetch('http://localhost:5600/users', config)
+    const result = await response.json()
+    return result;
+}
 
 
 // MENU PARA CRUD DE LOS USUARIOS  
@@ -75,14 +93,29 @@ const editUser = async (data) => {
 //     .catch(error => alert(error))
 // }
 
-while(confirm("¿Quieres actualizar un usuario?")){
-    const data = {}
-    data.id= Number(prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
-    data.name = (confirm("¿Desea cambiar el nombre del producto?")) ? prompt("Ingrese el nuevo nombre") : undefined
-    data.last = (confirm("Desea cambiar el apellido del usuario?")) ? prompt("Ingrese el nuevo apellido") : undefined
-    editUser(data)
-    .then(result => alert(JSON.stringify(result)))
+// while(confirm("¿Quieres actualizar un usuario?")){
+//     const data = {}
+//     data.id= Number(prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
+//     data.name = (confirm("¿Desea cambiar el nombre del usuario?")) ? prompt("Ingrese el nuevo nombre") : undefined
+//     data.last = (confirm("Desea cambiar el apellido del usuario?")) ? prompt("Ingrese el nuevo apellido") : undefined
+//     editUser(data)
+//     .then(result => alert(JSON.stringify(result)))
+//     .catch(error => alert(error))
+// }
+
+// while(confirm("¿Quieres eliminar un usuario?")){
+//     const data = {}
+//     data.id= Number(prompt("Ingrese el ID del usuario a eliminar","Mami-09" ))
+//     removeUser(data)
+//     .then(result => alert(JSON.stringify(result)))
+//     .catch(error => alert(error))
+// }
+
+while(confirm("¿Quieres obtener todos los usuarios?")){
+    findUsers()
+    .then(result => console.table((result)))
     .catch(error => alert(error))
+    break
 }
 
 
