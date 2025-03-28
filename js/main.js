@@ -71,6 +71,23 @@ const saveUser = async (data) => {
     return result;
 }
 
+const editUser = async (data) => {
+    const {id, ...dataUpdate} = data;
+    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
+    url.pathname = `/users/${id}`;
+    const header = new Headers();
+    header.append("Content-Type", "application/json");
+
+    const config = {
+        method: "PUT", // Actualizar 
+        headers: header,
+        body: JSON.stringify(dataUpdate)
+    }
+    const response = await fetch(url.toString(), config)
+    const result = await response.json()
+    return result;
+}
+
 
 
 
