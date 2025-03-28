@@ -88,6 +88,18 @@ const editUser = async (data) => {
     return result;
 }
 
+const removeUser = async (data) => {
+    const {id} = data;
+    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
+    url.pathname = `/users/${id}`;
+    const config = {
+        method: "DELETE", // Actualizar 
+    }
+    const response = await fetch(url.toString(), config)
+    const result = await response.json()
+    return result;
+}
+
 
 
 
