@@ -54,6 +54,23 @@ const findProducts = async () => {
     const result = await response.json()
     return result;
 }
+// CRUD DE LOS USUARIOS, con servidor de MOCKAPI
+const saveUser = async (data) => {
+    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
+    url.pathname = "/users";
+    const header = new Headers();
+    header.append("Content-Type", "application/json");
+
+    const config = {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(data)
+    }
+    const response = await fetch(url.toString(), config)
+    const result = await response.json()
+    return result;
+}
+
 
 
 
