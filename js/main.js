@@ -1,90 +1,31 @@
 // FUNCIONES PARA CRUD DE LOS PRODUCTOS 
 const saveProduct = async (data) => {
+    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
+    url.pathname = "/products";
+    const header = new Headers();
+    header.append("Content-Type", "application/json");
+
     const config = {
         method: "POST",
+        headers: header,
         body: JSON.stringify(data)
     }
-    const response = await fetch('http://localhost:5600/products', config)
+    const response = await fetch(url.toString(), config)
     const result = await response.json()
     return result;
 }
 
-const editProduct = async (data) => {
-    const {id, ...dataUpdate} = data;
-    const config = {
-        method: "PATCH", // Actualizar 
-        body: JSON.stringify(dataUpdate)
-    }
-    const response = await fetch(`http://localhost:5600/products/${id}`, config)
-    const result = await response.json()
-    return result;
-}
 
-const removeProduct = async (data) => {
-    const {id} = data;
-    const config = {
-        method: "DELETE", // Actualizar 
-    }
-    const response = await fetch(`http://localhost:5600/products/${id}`, config)
-    const result = await response.json()
-    return result;
-}
 
-const findProducts = async () => {
-    const config = {
-        method: "GET", // Obtener todos los productos
-    }
-    const response = await fetch(`http://localhost:5600/products`, config)
-    const result = await response.json()
-    return result;
-}
 
-// FUNCIONES PARA CRUD DE LOS USUARIOS
-const saveUser = async (data) => {
-    const config = {
-        method: "POST",
-        body: JSON.stringify(data)
-    }
-    const response = await fetch('http://localhost:5600/users', config)
-    const result = await response.json()
-    return result;
-}
 
-const editUser = async (data) => {
-    const {id, ...dataUpdate} = data;
-    const config = {
-        method: "PATCH", // Actualizar 
-        body: JSON.stringify(dataUpdate)
-    }
-    const response = await fetch(`http://localhost:5600/users/${id}`, config)
-    const result = await response.json()
-    return result;
-}
 
-const removeUser = async (data) => {
-    const {id} = data;
-    const config = {
-        method: "DELETE", 
-    }
-    const response = await fetch(`http://localhost:5600/users/${id}`, config)
-    const result = await response.json()
-    return result;
-}
 
-const findUsers = async () => {
-    const config = {
-        method: "GET", // Obtener todos los productos
-    }
-    const response = await fetch('http://localhost:5600/users', config)
-    const result = await response.json()
-    return result;
-}
 
 
 // MENU PARA CRUD DE LOS USUARIOS  
 // while(confirm("¿Quieres registrar un usuario?")){
 //     const data = {
-//         id: Number(prompt("Ingrese el ID","Mami-09")),
 //         name: prompt("Ingrese el nombre del usuario", "David"),
 //         last: prompt("Ingrese el apellido del usuario", "Gamboa")
 //     }
@@ -95,7 +36,7 @@ const findUsers = async () => {
 
 // while(confirm("¿Quieres actualizar un usuario?")){
 //     const data = {}
-//     data.id= Number(prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
+//     data.id= (prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
 //     data.name = (confirm("¿Desea cambiar el nombre del usuario?")) ? prompt("Ingrese el nuevo nombre") : undefined
 //     data.last = (confirm("Desea cambiar el apellido del usuario?")) ? prompt("Ingrese el nuevo apellido") : undefined
 //     editUser(data)
@@ -105,25 +46,24 @@ const findUsers = async () => {
 
 // while(confirm("¿Quieres eliminar un usuario?")){
 //     const data = {}
-//     data.id= Number(prompt("Ingrese el ID del usuario a eliminar","Mami-09" ))
+//     data.id= (prompt("Ingrese el ID del usuario a eliminar","Mami-09" ))
 //     removeUser(data)
 //     .then(result => alert(JSON.stringify(result)))
 //     .catch(error => alert(error))
 // }
 
-while(confirm("¿Quieres obtener todos los usuarios?")){
-    findUsers()
-    .then(result => console.table((result)))
-    .catch(error => alert(error))
-    break
-}
+// while(confirm("¿Quieres obtener todos los usuarios?")){
+//     findUsers()
+//     .then(result => console.table((result)))
+//     .catch(error => alert(error))
+//     break
+// }
 
 
 
 // MENU PARA CRUD DE LOS PRODUCTOS ///////////////////////////////////////
 // while(confirm("¿Quieres guardar un producto?")){
 //     const data = {
-//         id: prompt("Ingrese el ID","Mami-09" ),
 //         name: prompt("Ingrese el nombre", "Mac Mini"),
 //         price: Number(prompt("Ingrese el precio", 600)),
 //         category: prompt("Ingrese la categoría", "Technology")
@@ -135,7 +75,7 @@ while(confirm("¿Quieres obtener todos los usuarios?")){
 
 // while(confirm("¿Quieres actualizar un producto?")){
 //     const data = {}
-//     data.id= Number(prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
+//     data.id= (prompt("Ingrese el ID del producto a actualizar","Mami-09" ))
 //     data.name = (confirm("¿Desea cambiar el nombre del producto?")) ? prompt("Ingrese el nuevo nombre") : undefined
 //     data.price = (confirm("¿Desea cambiar el precio del producto?")) ? Number(prompt("Ingrese el nuevo precio")) : undefined
 //     data.category = (confirm("¿Desea cambiar la categoría del producto?")) ? prompt("Ingrese la nueva categoría") : undefined
@@ -147,7 +87,7 @@ while(confirm("¿Quieres obtener todos los usuarios?")){
 
 // while(confirm("¿Quieres eliminar un producto?")){
 //     const data = {}
-//     data.id= Number(prompt("Ingrese el ID del producto a eliminar","Mami-09" ))
+//     data.id= (prompt("Ingrese el ID del producto a eliminar","Mami-09" ))
 //     removeProduct(data)
 //     .then(result => alert(JSON.stringify(result)))
 //     .catch(error => alert(error))
@@ -160,3 +100,4 @@ while(confirm("¿Quieres obtener todos los usuarios?")){
 //     break
 // }
 ///////////////////////////////////////////////////////
+
