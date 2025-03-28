@@ -44,6 +44,17 @@ const removeProduct = async (data) => {
     return result;
 }
 
+const findProducts = async () => {
+    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
+    url.pathname = "/products";
+    const config = {
+        method: "GET", // Obtener todos los productos
+    }
+    const response = await fetch(url.toString(), config)
+    const result = await response.json()
+    return result;
+}
+
 
 
 
