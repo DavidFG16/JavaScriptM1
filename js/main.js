@@ -1,116 +1,119 @@
-// FUNCIONES PARA CRUD DE LOS PRODUCTOS 
-const saveProduct = async (data) => {
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = "/products";
-    const header = new Headers();
-    header.append("Content-Type", "application/json");
-
-    const config = {
-        method: "POST",
-        headers: header,
-        body: JSON.stringify(data)
+const users = {
+    url: "https://67e686846530dbd311105602.mockapi.io",
+    endpoint: "/users",
+  
+    async save() {
+      const url = new URL(this.url);
+      url.pathname += this.endpoint;
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      const config = {
+        method: "POST", // Guardar todos los usuarios
+        headers: headers,
+        body: JSON.stringify({
+          name: this.name,
+          last: this.last
+        })
+      };
+  
+      const response = await fetch(url.toString(), config);
+      const result = await response.json();
+      return result;
+    },
+  
+    async search() {
+      const url = new URL(this.url);
+      url.pathname += `${this.endpoint}/${this.id}`;
+      const config = {
+        method: "GET"
+      };
+  
+      const response = await fetch(url.toString(), config);
+      const result = await response.json();
+      return result;
+    },
+  
+    async edit() {
+      const url = new URL(this.url);
+      url.pathname += `${this.endpoint}/${this.id}`;
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      const config = {
+        method: "PUT", // Actualizar el usuario completo (puedes usar PATCH para actualización parcial)
+        headers: headers,
+        body: JSON.stringify({
+          name: this.name,
+          last: this.last
+        })
+      };
+  
+      const response = await fetch(url.toString(), config);
+      const result = await response.json();
+      return result;
+    },
+  
+    async remove() {
+      const url = new URL(this.url);
+      url.pathname += `${this.endpoint}/${this.id}`;
+      const config = {
+        method: "DELETE" // Eliminar el usuario
+      };
+  
+      const response = await fetch(url.toString(), config);
+      const result = await response.json();
+      return result;
+    },
+  
+    async find() {
+      const url = new URL(this.url);
+      url.pathname += this.endpoint;
+      const config = {
+        method: "GET" // Obtener todos los usuarios
+      };
+  
+      const response = await fetch(url.toString(), config);
+      const result = await response.json();
+      return result;
     }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
+  };
 
-const editProduct = async (data) => {
-    const {id, ...dataUpdate} = data;
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = `/products/${id}`;
-    const header = new Headers();
-    header.append("Content-Type", "application/json");
+const { url, endpoint, save, edit, remove, find, search } = users;
+const usersEdit = {
+  url,
+  endpoint,
+  edit,
+  id: Number(prompt("Ingrese el id del usuario a editar", 3)),
+  name: prompt("Ingrese el nuevo nombre del usuario", "Adrian"),
+  last: prompt("Ingrese el nuevo apellido del usuario", "Ruiz")
+};
 
-    const config = {
-        method: "PUT", // Actualizar 
-        headers: header,
-        body: JSON.stringify(dataUpdate)
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
+const usersFind = {
+  url,
+  endpoint,
+  find
+};
 
-const removeProduct = async (data) => {
-    const {id} = data;
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = `/products/${id}`;
-    const config = {
-        method: "DELETE", // Actualizar 
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
+const usersSearch = {
+  url,
+  endpoint,
+  search,
+  id: Number(prompt("Ingrese el id del usuario a buscar", 3))
+};
 
-const findProducts = async () => {
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = "/products";
-    const config = {
-        method: "GET", // Obtener todos los productos
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
-// CRUD DE LOS USUARIOS, con servidor de MOCKAPI
-const saveUser = async (data) => {
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = "/users";
-    const header = new Headers();
-    header.append("Content-Type", "application/json");
+const usersSave = {
+  url,
+  endpoint,
+  save,
+  name: prompt("Ingrese el nombre del usuario", "Adrian"),
+  last: prompt("Ingrese el apellido del usuario", "Ruiz")
+};
 
-    const config = {
-        method: "POST",
-        headers: header,
-        body: JSON.stringify(data)
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
-
-const editUser = async (data) => {
-    const {id, ...dataUpdate} = data;
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = `/users/${id}`;
-    const header = new Headers();
-    header.append("Content-Type", "application/json");
-
-    const config = {
-        method: "PUT", // Actualizar 
-        headers: header,
-        body: JSON.stringify(dataUpdate)
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
-
-const removeUser = async (data) => {
-    const {id} = data;
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = `/users/${id}`;
-    const config = {
-        method: "DELETE", // Actualizar 
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
-
-const findUsers = async () => {
-    const url = new URL("https://67e686846530dbd311105602.mockapi.io");
-    url.pathname = "/users";
-    const config = {
-        method: "GET", // Obtener todos los productos
-    }
-    const response = await fetch(url.toString(), config)
-    const result = await response.json()
-    return result;
-}
-
+const usersRemove = {
+  url,
+  endpoint,
+  remove,
+  id: Number(prompt("Ingrese el id del usuario a eliminar", 3))
+};
 
 
 
